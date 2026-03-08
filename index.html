@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,7 +7,20 @@
     <title>p5-stars</title>
   </head>
   <body>
-    <div id="app"></div>
+    <svg width="640" height="400" viewbox="0 0 640 400">
+      <defs>
+        <rect id="test" width="5" height="5" fill="red" />
+        <polygon
+          id="5-point-star"
+          fill="gold"
+          width="10"
+          height="10"
+          points="5,1 6,4 9,4 7,6 8,9 5,7 2,9 3,6 1,4 4,4"
+        />
+      </defs>
+      <use href="#test" class="move" x="120" style="--scale: 1" />
+      <use href="#5-point-star" class="move" x="60" style="--scale: 1.5" />
+    </svg>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
