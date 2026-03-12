@@ -17,6 +17,10 @@ export const convertPolarToCartesian = (
 
 export const degreesToRadians = (deg: number) => deg * (Math.PI / 180);
 
+export const randomLerp = (min: number, max: number) => {
+  return normalize(Math.random(), 0, 1, min, max);
+};
+
 export const normalize = (
   value: number,
   currentScaleMin: number,
@@ -28,4 +32,8 @@ export const normalize = (
     (value - currentScaleMin) / (currentScaleMax - currentScaleMin);
 
   return (newScaleMax - newScaleMin) * standardNormalization + newScaleMin;
+};
+
+export const random = (lower: number, upper: number) => {
+  return lower + Math.floor(Math.random() * (upper - lower + 1));
 };

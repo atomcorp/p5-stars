@@ -27,9 +27,26 @@ export const createArc = (
     // offset the start by the length, so it
     const start = degreesToRadians(state.rotation - arcLengthInDegrees);
     const end = start + degreesToRadians(arcLengthInDegrees);
-    ctx.beginPath();
-    ctx.arc(center.x, center.y, radius, start, end);
-    ctx.stroke();
+
+    ctx.globalCompositeOperation = "lighter";
+
+    const redraw = (blur: number, width: number) => {
+      ctx.beginPath();
+      ctx.shadowBlur = blur;
+      ctx.shadowColor = "lime";
+      ctx.strokeStyle = "lime";
+      ctx.lineWidth = width;
+      ctx.arc(center.x, center.y, radius, start, end);
+      ctx.stroke();
+    };
+
+    redraw(20, 2);
+    redraw(10, 2);
+    redraw(5, 1);
+
+    // cancel effect so it isn't inherited
+    ctx.shadowBlur = 0;
+    ctx.globalCompositeOperation = "source-over";
 
     // TODO: works but feels hacky
     if (state.rotation > 360) {

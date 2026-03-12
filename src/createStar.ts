@@ -1,7 +1,8 @@
 import type { Position } from "./types";
 import { convertPolarToCartesian } from "./utils";
 
-type Params = {
+export type StarParams = {
+  startRotation: number;
   radius: number; // distance from center
   speed: number;
   startSpinDegrees: number; // in degrees
@@ -19,18 +20,20 @@ type State = {
 export const createStar = (
   ctx: CanvasRenderingContext2D,
   center: Position,
-  params: Params
+  params: StarParams
 ) => {
   const {
     radius,
     speed,
     spinSpeed,
+    startRotation,
+    startSpinDegrees,
     size: { outerRadius, innerRadius },
   } = params;
 
   const state: State = {
-    rotation: 0,
-    spin: params.startSpinDegrees,
+    rotation: startRotation,
+    spin: startSpinDegrees,
   };
 
   const drawStar = (deltaTime: number): void => {
@@ -68,12 +71,11 @@ export const createStar = (
     ctx.fill();
     ctx.stroke();
 
-    // TODO: works but feels hacky
     if (state.rotation > 360) {
       state.rotation = 0;
     }
-    if (state.spin > 360) {
-      state.spin = 0;
+    if (state.spin > 360 + startSpinDegrees) {
+      state.spin = startSpinDegrees;
     }
   };
 
