@@ -1,5 +1,5 @@
 import type { Position } from "./types";
-import { degreesToRadians } from "./utils";
+import { degreesToRadians, convertPolarToCartesian } from "./utils";
 
 type Params = {
   arcLengthInDegrees: number; //

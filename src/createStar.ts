@@ -1,5 +1,5 @@
 import type { Position } from "./types";
-import { convertPolarToCartesian } from "./utils";
+import { convertPolarToCartesian, isInView } from "./utils";
 
 export type StarParams = {
   startRotation: number;
@@ -7,6 +7,7 @@ export type StarParams = {
   speed: number;
   startSpinDegrees: number; // in degrees
   spinSpeed: number;
+  color: string;
   size: {
     outerRadius: number;
     innerRadius: number;
@@ -17,6 +18,9 @@ type State = {
   spin: number;
 };
 
+const points = 5;
+const step = Math.PI / points; // 36 degrees in radians
+
 export const createStar = (
   ctx: CanvasRenderingContext2D,
   center: Position,
@@ -24,6 +28,7 @@ export const createStar = (
 ) => {
   const {
     radius,
+    color,
     speed,
     spinSpeed,
     startRotation,
@@ -36,7 +41,15 @@ export const createStar = (
     spin: startSpinDegrees,
   };
 
-  const drawStar = (deltaTime: number): void => {
+  const size = {
+    width: outerRadius,
+    height: outerRadius,
+  };
+
+  const drawStar = (
+    deltaTime: number,
+    canvas: { width: number; height: number }
+  ): void => {
     state.spin += spinSpeed * deltaTime;
     state.rotation += speed * deltaTime;
 
@@ -45,36 +58,40 @@ export const createStar = (
       radius,
       state.rotation - outerRadius
     );
-    const points = 5;
-    const step = Math.PI / points; // 36 degrees in radians
-    let offsetRotation = -Math.PI / 2 + state.spin;
 
-    ctx.beginPath();
+    const inView = isInView(pos, size, canvas);
 
-    for (let i = 0; i < points * 2; i++) {
-      const r = i % 2 === 0 ? outerRadius : innerRadius;
+    if (inView) {
+      let offsetRotation = 0 + state.spin;
 
-      const x = pos.x + Math.cos(offsetRotation) * r;
-      const y = pos.y + Math.sin(offsetRotation) * r;
+      ctx.beginPath();
 
-      if (i === 0) {
-        ctx.moveTo(x, y);
-      } else {
-        ctx.lineTo(x, y);
+      for (let i = 0; i < points * 2; i++) {
+        const r = i % 2 === 0 ? outerRadius : innerRadius;
+
+        const x = pos.x + Math.cos(offsetRotation) * r;
+        const y = pos.y + Math.sin(offsetRotation) * r;
+
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+
+        offsetRotation += step;
       }
 
-      offsetRotation += step;
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+      // ctx.stroke();
     }
-
-    ctx.closePath();
-    ctx.fillStyle = "gold";
-    ctx.fill();
-    ctx.stroke();
 
     if (state.rotation > 360) {
       state.rotation = 0;
     }
-    if (state.spin > 360 + startSpinDegrees) {
+    // tbh i don't understand why this works, there are 5 points to the star
+    if (state.spin > startSpinDegrees + points) {
       state.spin = startSpinDegrees;
     }
   };
