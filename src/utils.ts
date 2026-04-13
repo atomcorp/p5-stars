@@ -73,7 +73,26 @@ const color5 = "hsl(45deg 100% 57%)";
 const color6 = "hsl(45deg 100% 70%)";
 const colors = [color1, color2, color3, color4, color5, color6];
 
-export const getColor = () => {
+export const getStarColor = () => {
   return colors[Math.floor(randomLerp(0, colors.length))];
   // return `hsl(57deg 100% ${normalize(lightness, 0, 1, 50, 70)}%)`;
+};
+
+const arcColor1 = "hsl(214deg 100% 60%)";
+const arcColor2 = "hsl(214deg 100% 40%)";
+const arcColor3 = "hsl(158deg 100% 86%)";
+const arcColor4 = "hsl(158deg 100% 49%)";
+const arcColor5 = "hsl(99deg 100% 49%)";
+const arcColor6 = "hsl(318deg 100% 54%)";
+const arcColors = [
+  arcColor1,
+  arcColor2,
+  arcColor3,
+  arcColor4,
+  arcColor5,
+  arcColor6,
+];
+// hsl(214deg 96% 60%)
+export const getArcColor = () => {
+  return arcColors[Math.floor(randomLerp(0, arcColors.length))];
 };
