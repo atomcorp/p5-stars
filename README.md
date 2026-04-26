@@ -2,7 +2,7 @@
 
 Hello I really liked the Jose's night sky menu in Persona 5 Royal, so here is my attempt at replicating it.
 
-View at https://p5-stars.vercel.app
+WIP but can view at https://p5-stars.vercel.app
 
 Todo:
 
