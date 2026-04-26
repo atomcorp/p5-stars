@@ -114,7 +114,7 @@ const draw = (currentTime: number) => {
     particle(deltaTime, { width: canvas.width, height: canvas.height });
   });
 
-  animationId = self.requestAnimationFrame(draw);
+  self.requestAnimationFrame(draw);
 };
 
 requestAnimationFrame(draw);
