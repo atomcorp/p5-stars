@@ -2,6 +2,8 @@
 
 Hello I really liked the Jose's night sky menu in Persona 5 Royal, so here is my attempt at replicating it.
 
+View at https://p5-stars.vercel.app
+
 Todo:
 
 - i don't think i need to do most of the maths. Probably just need to do it once offscreen, then rotate and redraws on main screen
