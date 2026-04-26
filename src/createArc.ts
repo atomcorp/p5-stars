@@ -1,5 +1,5 @@
 import type { Position } from "./types";
-import { degreesToRadians, convertPolarToCartesian } from "./utils";
+import { degreesToRadians } from "./utils";
 
 export type ArcParams = {
   arcLengthInDegrees: number; //
@@ -24,10 +24,7 @@ export const createArc = (
     rotation: startRotation,
   };
 
-  const drawArc = (
-    deltaTime: number,
-    canvas: { width: number; height: number }
-  ) => {
+  const drawArc = (deltaTime: number) => {
     state.rotation += speed * deltaTime;
     // offset the start by the length, so it
     const start = degreesToRadians(state.rotation - arcLengthInDegrees);

@@ -31,7 +31,6 @@ const ORBIT_POINT = {
 };
 
 let lastTime = 0;
-let animationId: number;
 
 const getRandomArcs = () => {
   const arcs = [];
